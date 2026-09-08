@@ -139,4 +139,13 @@ $test = add_track($test, $piste3);
 display($test);
 
 
+function play(array $playlist_par) : void {
+    for ($i=0; $i < count($playlist_par['pistes']) ; $i++) { 
+        play_track($playlist_par['pistes'][$i]);
+    }
+}
+
+play($test);
+
+
 

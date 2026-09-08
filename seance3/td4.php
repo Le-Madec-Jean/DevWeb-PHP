@@ -16,7 +16,7 @@ $piste = [
     "album" => "After Hours",
     "annee" => "2020",
     "genre" => "Synth-pop",
-    "numero" => "1",
+    "numero" => 1,
     "duree" => 160,
 ];
 
@@ -26,7 +26,7 @@ $piste2 = [
     "album" => "÷ (Divide)",
     "annee" => "2017",
     "genre" => "Pop",
-    "numero" => "2",
+    "numero" => 2,
     "duree" => 500,
 ];
 
@@ -36,7 +36,7 @@ $piste3 = [
     "album" => "Random Access Memories",
     "annee" => "2013",
     "genre" => "Disco",
-    "numero" => "3",
+    "numero" => 3,
     "duree" => 200,
 ];
 
@@ -123,7 +123,7 @@ function play_track(array $piste_par) : void {
 
 
 function add_track(array $playlist_para  , array $piste_par) : array {
-    $playlist_para['pistes'][] = $piste_par;
+    $playlist_para['pistes'][$piste_par['numero']] = $piste_par;
 
     return $playlist_para;
 }
@@ -136,7 +136,7 @@ $test = add_track($test, $piste3);
 //print $test['pistes'][1]['titre'];
 
 
-display($test);
+//display($test);
 
 
 function play(array $playlist_par) : void {
@@ -145,7 +145,24 @@ function play(array $playlist_par) : void {
     }
 }
 
-play($test);
+//play($test);
+
+function remove_track(array &$playlist_par, int $index) : void {
+    if (isset($playlist_par['pistes'][$index])) {
+        unset($playlist_par['pistes'][$index]);
+    } else {
+        echo'numéro de piste iconnu';
+    }
+}
+
+function pl_shuffle (array &$playlist_par) : void {
+    shuffle($playlist_par['pistes']);
+}
+
+
+pl_shuffle($test);
+display($test);
+
 
 
 

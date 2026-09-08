@@ -6,6 +6,7 @@ $playlist = [
     "createur"=> " john doe",
     "date"=> " 28-08-2022",
     "nbpistes"=> 56,
+    "pistes"=> [],
     "duree"=>  10080 ,
 ];
 
@@ -77,7 +78,11 @@ function display(array $playlist) : void {
     }
 
 
-    print $str;
+    print $str . "\n";
+
+    foreach ($playlist['pistes'] as $key => $value) {
+        display_track($playlist['pistes'][$key]) ;
+    }
     
 }
 
@@ -89,13 +94,13 @@ function display_track(array $piste_par, string $affichage = "court") : void {
     
     switch ($affichage) {
     case 'complet':
-            print "{$piste_par['numero']} - {$piste_par['titre']} - {$piste_par['artiste']} - {$piste_par['album']} - {$piste_par['duree']} - {$piste_par['annee']} - {$piste_par['genre']}";
+            print "{$piste_par['numero']} - {$piste_par['titre']} - {$piste_par['artiste']} - {$piste_par['album']} - {$piste_par['duree']} - {$piste_par['annee']} - {$piste_par['genre']} \n";
             break;
         case 'etendu':
-            print "{$piste_par['numero']} - {$piste_par['titre']} - {$piste_par['artiste']} - {$piste_par['album']} - {$piste_par['duree']}";
+            print "{$piste_par['numero']} - {$piste_par['titre']} - {$piste_par['artiste']} - {$piste_par['album']} - {$piste_par['duree']} \n";
             break;
         default:
-            print "{$piste_par['numero']} - {$piste_par['titre']} - {$piste_par['artiste']}";
+            print "{$piste_par['numero']} - {$piste_par['titre']} - {$piste_par['artiste']} \n";
             break;
     }
         
@@ -113,7 +118,25 @@ function play_track(array $piste_par) : void {
 
 }
 
-play_track($piste);
+//play_track($piste);
+
+
+
+function add_track(array $playlist_para  , array $piste_par) : array {
+    $playlist_para['pistes'][] = $piste_par;
+
+    return $playlist_para;
+}
+
+
+$test = add_track($playlist, $piste);
+$test = add_track($test, $piste2);
+$test = add_track($test, $piste3);
+
+//print $test['pistes'][1]['titre'];
+
+
+display($test);
 
 
 

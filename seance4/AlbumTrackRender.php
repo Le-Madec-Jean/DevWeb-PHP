@@ -1,7 +1,7 @@
 <?php
 require_once("AlbumTrack.php");
 
-class AlbumTrackRender implements Renderer
+class AlbumTrackRender extends AudioTrackRender
 {
 
     private AlbumTrack $albumTrack;
@@ -12,27 +12,9 @@ class AlbumTrackRender implements Renderer
 
     }
 
-    public function render(int $selector): string
-    {
-        $res = "";
-        switch ($selector) {
-            case Renderer::COMPACT:
-                $res = $this->render_html(Renderer::COMPACT);
-                break;
 
-            case Renderer::LONG:
-                $res =$this->render_html(Renderer::LONG);
-                break;
 
-            default:
-                $res = $this->render_html(Renderer::COMPACT);
-                break;
-        }
-
-        return $res;
-    }
-
-    private function render_html(int $selector): string
+    protected function render_html(int $selector): string
     {
         $res = "";
         $data = json_decode($this->albumTrack);

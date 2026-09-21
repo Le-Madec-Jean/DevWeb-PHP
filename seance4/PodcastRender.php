@@ -1,17 +1,14 @@
 <?php
-require_once("AlbumTrack.php");
 
-class AlbumTrackRender implements Renderer
+final class PodcastRender  implements Renderer
 {
+    private PodcastTrack $podcasts;
 
-    private AlbumTrack $albumTrack;
-
-    public function __construct(AlbumTrack $albumTrack_para)
+    public function __construct(PodcastTrack $PodcastTrack_para)
     {
-        $this->albumTrack = $albumTrack_para;
+        $this->podcasts = $PodcastTrack_para;
 
     }
-
     public function render(int $selector): string
     {
         $res = "";
@@ -35,7 +32,7 @@ class AlbumTrackRender implements Renderer
     private function render_html(int $selector): string
     {
         $res = "";
-        $data = json_decode($this->albumTrack);
+        $data = json_decode($this->podcasts);
         switch ($selector) {
             case Renderer::COMPACT:
                 $res =
@@ -43,7 +40,7 @@ class AlbumTrackRender implements Renderer
                 <source src= \"$data->nom_fichier\" type=\"audio/mpeg\">
                 </audio>
                 
-                <p> $data->title-$data->album </p> 
+                <p> $data->title</p> 
                 ";
                 break;
 
@@ -53,7 +50,7 @@ class AlbumTrackRender implements Renderer
                 <source src= \"$data->nom_fichier\" type=\"audio/mpeg\">
                 </audio>
                 
-                <p>$data->numero_pistes-$data->title-$data->album </p> 
+                <p>$data->date-$data->title</p> 
                 ";
                 break;
 
@@ -63,14 +60,11 @@ class AlbumTrackRender implements Renderer
                 <source src= \"$data->nom_fichier\" type=\"audio/mpeg\">
                 </audio>
                 
-                <p> $data->title-$data->album </p> 
+                <p> $data->title-$data-> </p> 
                 ";
                 break;
         }
 
         return $res;
     }
-
 }
-
-

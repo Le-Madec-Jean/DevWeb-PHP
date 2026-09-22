@@ -12,6 +12,16 @@ class AlbumTrackRender extends AudioTrackRender
 
     }
 
+    public function __get(string $name) : mixed{
+        if(property_exists($this, $name)){return $this->$name;}
+        throw new Exception("invalid property : $name");
+    }
+
+    public function __set(string $name, mixed $value): void{
+        if(property_exists($this, $name)){ $this->$name = $value;} else{
+        throw new Exception("invalid property : $name");}
+    }
+
 
 
     protected function render_html(int $selector): string

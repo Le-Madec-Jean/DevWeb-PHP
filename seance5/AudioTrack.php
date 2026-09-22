@@ -16,4 +16,14 @@ class AudioTrack
     public function __tostring() : string {
         return json_encode(get_object_vars($this));
     }
+
+    public function __get(string $name) : mixed{
+        if(property_exists($this, $name)){return $this->$name;}
+        throw new Exception("invalid property : $name");
+    }
+
+    public function __set(string $name, mixed $value): void{
+        if(property_exists($this, $name)){ $this->$name = $value;} else{
+        throw new Exception("invalid property : $name");}
+    }
 }

@@ -4,9 +4,9 @@ class AlbumTrack extends AudioTrack
 {
     
     
-    public string $album;
-    public string $annee;
-    public int $numero_pistes;
+    private string $album;
+    private string $annee;
+    private int $numero_pistes;
 
 
     public function __construct(string $title_para, string $path, string $album_para, int $num_pistes_para)
@@ -16,6 +16,16 @@ class AlbumTrack extends AudioTrack
         $this->numero_pistes = $num_pistes_para;
         
 
+    }
+
+    public function __get(string $name) : mixed{
+        if(property_exists($this, $name)){return $this->$name;}
+        throw new Exception("invalid property : $name");
+    }
+
+    public function __set(string $name, mixed $value): void{
+        if(property_exists($this, $name)){ $this->$name = $value;} else{
+        throw new Exception("invalid property : $name");}
     }
 
     public function __tostring() : string {

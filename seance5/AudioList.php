@@ -1,6 +1,6 @@
 <?php
 
-final class AudioList
+class AudioList
 {
     protected string $nom;
     protected int $nb_pistes;

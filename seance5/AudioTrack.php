@@ -22,8 +22,16 @@ class AudioTrack
         throw new Exception("invalid property : $name");
     }
 
-    public function __set(string $name, mixed $value): void{
-        if(property_exists($this, $name)){ $this->$name = $value;} else{
-        throw new Exception("invalid property : $name");}
+    public function __set(string $name, mixed $value): void
+    {
+        if ($value < 0 and $name === "duree") {
+            throw new InvalidPropertyValueException("argument invalid : $value");
+        } else {
+            if (property_exists($this, $name)) {
+                $this->$name = $value;
+            } else {
+                throw new InvalidPropertyNameException("invalid property : $name");
+            }
+        }
     }
 }

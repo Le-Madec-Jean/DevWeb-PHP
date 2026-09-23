@@ -12,7 +12,7 @@ class PodcastTrack extends AudioTrack
 
     public function __get(string $name) : mixed{
         if(property_exists($this, $name)){return $this->$name;}
-        throw new Exception("invalid property : $name");
+        throw new InvalidPropertyNameException("invalid property : $name");
     }
 
     public function __set(string $name, mixed $value): void

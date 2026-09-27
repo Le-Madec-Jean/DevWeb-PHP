@@ -1,5 +1,9 @@
 <?php
 
+namespace Seance5\Iutnc\Deefy\Audio\Track;
+
+//use Seance5\Iutnc\Deefy\track\AudioTrack as AuiTrack;
+
 class AudioTrack 
 {
     protected string $title;

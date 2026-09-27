@@ -1,6 +1,6 @@
 <?php
-require_once("AlbumTrack.php");
 
+namespace Seance5\Iutnc\Deefy\Render;
 class AlbumTrackRender extends AudioTrackRender
 {
 

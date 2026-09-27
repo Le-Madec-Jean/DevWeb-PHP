@@ -1,6 +1,6 @@
 <?php
-
-final class InvalidPropertyValueException extends Exception
+namespace Seance5\Iutnc\Deefy\Exception;
+class InvalidPropertyValueException extends \Exception
 {
     
 }

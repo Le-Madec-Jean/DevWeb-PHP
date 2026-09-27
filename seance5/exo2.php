@@ -1,4 +1,6 @@
 <?php
+
+use Seance5\Iutnc\Deefy\Exception\InvalidPropertyNameException;
 require_once("Renderer.php");
 require_once("AudioTrackRender.php");
 require_once("AudioTrack.php");
@@ -9,8 +11,8 @@ require_once("PodcastRender.php");
 require_once("InvalidPropertyValueException.php");
 require_once("InvalidPropertyNameException.php");
 
-$album = new AlbumTrack("titre", "audio/01-Im_with_you_BB-King-Lucille.mp3", "album", 1);
-$podcast = new PodcastTrack("20/09/2026", "titre", "path");
+$album = new Seance5\Iutnc\Deefy\Audio\track\AlbumTrack("titre", "audio/01-Im_with_you_BB-King-Lucille.mp3", "album", 1);
+$podcast = new Seance5\Iutnc\Deefy\Audio\track\PodcastTrack("20/09/2026", "titre", "path");
 
 //echo $album->title . " " . $album->album . " " . $album->nom_fichier . " " . $album->numero_pistes . "\n";
 //print_r($album->__tostring());
@@ -36,10 +38,10 @@ try {
     //$album->dure = 160;
     $album->duree = -999;
 
-} catch (InvalidPropertyNameException $th) {
+} catch (Seance5\Iutnc\Deefy\Exception\InvalidPropertyNameException $th) {
     print $th->getMessage();
     //print "$th->getTrace()";
-} catch (InvalidPropertyValueException $e) {
+} catch (Seance5\Iutnc\Deefy\Exception\InvalidPropertyValueException $e) {
     print $e->getMessage();
     //print "$th->getTrace()";
 }

@@ -1,5 +1,5 @@
 <?php
-
+namespace Seance5\Iutnc\Deefy\Render;
 final class PodcastRender  extends AudioTrackRender 
 {
     private PodcastTrack $podcasts;

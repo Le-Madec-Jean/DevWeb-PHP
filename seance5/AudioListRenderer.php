@@ -1,4 +1,6 @@
 <?php
+
+namespace Seance5\Iutnc\Deefy\Render;
 class AudioListRenderer implements Renderer {
     private AudioList $audioList;
     

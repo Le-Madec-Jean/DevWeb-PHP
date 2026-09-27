@@ -1,5 +1,5 @@
 <?php
-
+namespace Seance5\Iutnc\Deefy\Audio\Lists;
 class Album extends AudioList
 {
     private string $artiste_album;
@@ -8,8 +8,8 @@ class Album extends AudioList
 
     public function __construct(string $nom_para, array $album_list_para)
     {
+        
         parent::__construct($nom_para, $album_list_para);
-
 
     }
 

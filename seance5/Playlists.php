@@ -1,5 +1,9 @@
 <?php
 
+namespace Seance5\Iutnc\Deefy\Audio\lists;
+
+use Seance5\Iutnc\Deefy\Audio\lists\Playlists as Playlist;
+
 class Playlists extends AudioList 
 {
     public function add_piste (AudioTrack $piste){

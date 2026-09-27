@@ -1,5 +1,9 @@
 <?php
 
+namespace Seance5\Iutnc\Deefy\Audio\lists;
+
+use Seance5\Iutnc\Deefy\Audio\AudioLists as AudioLists;
+
 class AudioList
 {
     protected string $nom;

@@ -1,5 +1,7 @@
 <?php
 
+namespace Seance5\Iutnc\Deefy\Render;
+
 abstract class AudioTrackRender implements Renderer {
 
     public function render(int $selector): string

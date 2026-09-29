@@ -1,10 +1,10 @@
 <?php
 
-namespace Seance5\Iutnc\Deefy\Render;
+namespace seance5\Iutnc\Deefy\Render;
 class AudioListRenderer implements Renderer {
-    private AudioList $audioList;
+    private \seance5\Iutnc\Deefy\Audio\lists\AudioList $audioList;
     
-    public function __construct(AudioList $audioList) {
+    public function __construct(\seance5\Iutnc\Deefy\Audio\lists\AudioList $audioList) {
         $this->audioList = $audioList;
     }
     

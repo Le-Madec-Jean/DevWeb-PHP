@@ -1,9 +1,10 @@
 <?php
 
+require_once 'vendor\autoload.php';
 
-require_once 'iutnc/deefy/loader/Psr4ClassLoader.php';
-$loader = new \Seance7\Iutnc\Deefy\Loader\Psr4ClassLoader("Iutnc\\Deefy\\", "iutnc/deefy");
-$loader->register(); 
+//require_once 'iutnc/deefy/loader/Psr4ClassLoader.php';
+//$loader = new \Seance7\Iutnc\Deefy\Loader\Psr4ClassLoader("Iutnc\\Deefy\\", "iutnc/deefy");
+//$loader->register(); 
 $album = new \Iutnc\Deefy\Audio\track\AlbumTrack("titre", "audio/01-Im_with_you_BB-King-Lucille.mp3", "album", 1);
 $podcast = new \Iutnc\Deefy\Audio\track\PodcastTrack("20/09/2026", "titre", "path");
 

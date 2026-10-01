@@ -1,6 +1,6 @@
 <?php
 
-namespace Iutnc\Deefy\Audio\Track;
+namespace Iutnc\Deefy\Audio\track;
 
 //use Seance5\Iutnc\Deefy\track\AudioTrack as AuiTrack;
 

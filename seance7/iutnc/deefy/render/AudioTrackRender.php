@@ -1,6 +1,6 @@
 <?php
 
-namespace Seance5\Iutnc\Deefy\Render;
+namespace Iutnc\Deefy\Render;
 
 abstract class AudioTrackRender implements Renderer {
 

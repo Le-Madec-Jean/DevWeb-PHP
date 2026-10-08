@@ -1,21 +1,22 @@
 <?php
 
-namespace Iutnc\Deefy\Audio\lists;
+namespace Iutnc\Deefy\Audio\Lists;
 
-use Seance5\Iutnc\Deefy\Audio\lists\Playlists as Playlist;
+
 
 class Playlists extends AudioList 
 {
-    public function add_piste (AudioTrack $piste){
+    public function add_piste (\Iutnc\Deefy\Audio\Track\AudioTrack $piste){
         $this->liste_pistes[]=$piste;
         $this->nb_pistes++;
         $this->duree_total+=$piste->duree;
     }
 
     public function remove_piste (int $i){
+        $this->duree_total-=$this->liste_pistes[$i]->duree;
         unset($this->liste_pistes[$i]);
         $this->nb_pistes--;
-        $this->duree_total-=$this->liste_pistes[$i]->duree;
+       
     }
 
     public function addListe_piste (array $tab_piste){
@@ -23,7 +24,7 @@ class Playlists extends AudioList
             if (!(in_array($value, $this->liste_pistes))) {
                 $this->liste_pistes[]=$value;
                 $this->nb_pistes++;
-                $this->duree_total+=$key->duree;
+                $this->duree_total+=$value->duree;
             }
         }
     }

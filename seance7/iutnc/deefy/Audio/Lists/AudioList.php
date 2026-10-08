@@ -1,8 +1,7 @@
 <?php
 
-namespace Iutnc\Deefy\Audio\lists;
+namespace Iutnc\Deefy\Audio\Lists;
 
-use Iutnc\Deefy\Audio\AudioLists as AudioLists;
 
 class AudioList
 {
@@ -14,6 +13,8 @@ class AudioList
     public function __construct(string $nom_para, array $liste_pistes_para = []){
         $this->nom = $nom_para;
         $this->liste_pistes = $liste_pistes_para;
+        $this->nb_pistes = count($liste_pistes_para);
+        $this->duree_total = 0;
     }
 
     public function __get(string $name) : mixed{

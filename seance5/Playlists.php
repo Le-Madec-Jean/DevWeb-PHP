@@ -6,7 +6,7 @@ use Seance5\Iutnc\Deefy\Audio\lists\Playlists as Playlist;
 
 class Playlists extends AudioList 
 {
-    public function add_piste (AudioTrack $piste){
+    public function add_piste (\Iutnc\Deefy\Audio\track\AudioTrack $piste){
         $this->liste_pistes[]=$piste;
         $this->nb_pistes++;
         $this->duree_total+=$piste->duree;

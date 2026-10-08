@@ -35,7 +35,7 @@ if (isset($_SESSION['u1-s']) && isset($_SESSION['u1-s'])) {
     }
     ;
     
-    $_SESSION['temp'] = [];
+    $_SESSION['temp'] = []; 
 }
 
 

@@ -1,5 +1,5 @@
 <?php
-namespace Iutnc\Deefy\Audio\track;
+namespace Iutnc\Deefy\Audio\Track;
 class PodcastTrack extends AudioTrack
 {
     private string $date;
@@ -12,18 +12,18 @@ class PodcastTrack extends AudioTrack
 
     public function __get(string $name) : mixed{
         if(property_exists($this, $name)){return $this->$name;}
-        throw new InvalidPropertyNameException("invalid property : $name");
+        throw new \InvalidArgumentException("invalid property : $name");
     }
 
     public function __set(string $name, mixed $value): void
     {
         if ($value < 0 and $name === "duree") {
-            throw new InvalidPropertyValueException("argument invalid : $value");
+            throw new \InvalidArgumentException("argument invalid : $value");
         } else {
             if (property_exists($this, $name)) {
                 $this->$name = $value;
             } else {
-                throw new InvalidPropertyNameException("invalid property : $name");
+                throw new \InvalidArgumentException("invalid property : $name");
             }
         }
     }

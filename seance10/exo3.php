@@ -9,7 +9,7 @@ session_start();
 
 if (!(isset( $_SESSION["playlist"] ))) {
     $_SESSION["playlist"] = new \Iutnc\Deefy\Audio\Lists\Playlists("test");
-    echo "hello world";
+    
 }
     
    

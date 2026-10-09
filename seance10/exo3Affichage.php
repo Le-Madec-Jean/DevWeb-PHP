@@ -11,7 +11,7 @@ session_start();
 if ((isset( $_SESSION["playlist"] ))) {
 
     $piste = $_SESSION["playlist"]->liste_pistes[0];
-    $podcastRender = new \Iutnc\Deefy\Render\PodcastRender($piste);
+    $podcastRender = new \Iutnc\Deefy\Render\AlbumTrackRender($piste);  
 
    
     print $podcastRender->render(1);

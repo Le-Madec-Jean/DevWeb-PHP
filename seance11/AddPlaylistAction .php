@@ -1,6 +1,6 @@
 <?php
 
-use iutnc\deefy\action\Action;
+namespace Iutnc\Deefy\Action;
 
 
 class AddPlaylistAction extends Action

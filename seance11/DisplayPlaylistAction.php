@@ -12,7 +12,7 @@ class DisplayPlaylistAction extends Action
     public function execute(): string
     {
 
-        session_start();
+        
 
         $res = "";
 

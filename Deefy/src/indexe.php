@@ -10,9 +10,9 @@ session_start();
 $dispatcher = new \Iutnc\Deefy\dispatch\Dispatcher();
 
 $dispatcher
-    ->addRoute('default', \Iutnc\Deefy\action\DefaultAction::class)
-    ->addRoute('playlist', \Iutnc\Deefy\action\DisplayPlaylistAction::class)
-    ->addRoute('add-playlist', \Iutnc\Deefy\action\AddPlaylistAction::class)
-    ->addRoute('add-track', \Iutnc\Deefy\action\AddPodcastTrackAction::class);
+    ->addRoute('default', \Iutnc\Deefy\Action\DefaultAction::class)
+    ->addRoute('playlist', \Iutnc\Deefy\Action\DisplayPlaylistAction::class)
+    ->addRoute('add-playlist', \Iutnc\Deefy\Action\AddPlaylistAction::class)
+    ->addRoute('add-track', \Iutnc\Deefy\Action\AddPodcastTrackAction::class);
 
 $dispatcher->run();

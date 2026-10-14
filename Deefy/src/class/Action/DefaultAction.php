@@ -1,6 +1,6 @@
 <?php
 
-namespace Iutnc\Deefy\action;
+namespace Iutnc\Deefy\Action;
 
 class DefaultAction extends Action
 {

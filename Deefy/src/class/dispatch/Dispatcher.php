@@ -22,8 +22,8 @@ class Dispatcher
             switch ($this->action) {
 
                 case 'add-playlist':
-                    $default = new $this->action_tab['add-playlist'];
-                    $this->renderPage($default->execute());
+                    $add = new $this->action_tab['add-playlist'];
+                    $this->renderPage($add->execute());
                     break;
                 case 'playlist':
                     $playlist = new $this->action_tab['playlist'];
@@ -45,7 +45,7 @@ class Dispatcher
             }
 
         } else {
-            print "<p> hello </p>";
+            
             throw new \Exception("Action '{$this->action}' not found");
         }
 

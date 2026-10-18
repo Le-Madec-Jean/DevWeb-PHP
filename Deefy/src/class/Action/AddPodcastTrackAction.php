@@ -12,25 +12,134 @@ class AddPodcastTrackAction extends Action
 
     public function execute(): string
     {
+
+        $info = "";
         $res = "";
 
-        if ((isset($_SESSION["playlist"]))) {
+        if ($this->http_method === "GET") {
+            $res = <<<HTML
+                <form method="post" action="?action=add-track" enctype="multipart/form-data">
+                    <label> titre piste: </label>
+                    <input type="text" name="titre" required>
+
+                    <br>
+
+                    <label> fichier mp3: </label>
+                    <input type="file" name="mp3" required>
+
+                    <br>
+
+                    <label> date : </label>
+                    <input type="date" name="date" required>
+
+                    <br>
+
+                    <label> duree en s :</label>
+                    <input type="text" name="temps" required>
+
+                    <br>
+
+                    <label> genre :</label>
+                    <input type="text" name="genre" required>
+
+                    <br>
+
+                    <label> auteur :</label>
+                    <input type="text" name="auteur" required>
+
+                    <br>
+
+                    <label>  playlist :  </label>
+                    <input type="texte" name="NomPlaylist" required>
 
 
-            $piste = new \Iutnc\Deefy\Audio\Track\PodcastTrack("titre", "path", "nomAlbum");
-            $piste->duree = 120;
-            $_SESSION["playlist"]->add_piste($piste);
-
-            $res = "<p> ajout d'une piste </p>";
+                    <button type="submit"> créer</button>
+                </form>
+              HTML;
         } else {
+            //values input
+            $titre = filter_var($_POST["titre"], FILTER_SANITIZE_SPECIAL_CHARS);
+            $duree = filter_var((int) $_POST["temps"], FILTER_SANITIZE_NUMBER_INT);
+            $auteur = filter_var($_POST["auteur"], FILTER_SANITIZE_SPECIAL_CHARS);
+            $genre = filter_var($_POST["genre"], FILTER_SANITIZE_SPECIAL_CHARS);
+            $date = $_POST["date"];
 
 
-            $_SESSION["playlist"] = new \Iutnc\Deefy\Audio\Lists\Playlists("test");
-            $piste = new \Iutnc\deefy\Audio\Track\PodcastTrack("titre", "path", "nomAlbum");
-            $_SESSION["playlist"]->add_piste($piste);
+            //upload mp3
+            $mp3 = "";
+            $destination = "";
 
-             $res = "<p> ajout d'une piste </p>";
+            if (substr($_FILES["mp3"]["name"], -4) === ".mp3" && $_FILES["mp3"]["type"] === "audio/mpeg") {
+                $mp3 = $_FILES["mp3"]["tmp_name"];
+                $filename = uniqid();
+
+
+
+                $destination = dirname(__DIR__) . "/Audio/" . $filename . ".mp3";
+                $src = "/DevWeb-PHP/Deefy/src/class/Audio/" . $filename . ".mp3";
+
+
+
+
+                if (move_uploaded_file($mp3, $destination)) {
+
+                    if (isset($_SESSION["playlist"][$_POST["NomPlaylist"]])) {
+                       print "<p> téléchargement avec succès </p>";
+                    } else {
+                        print "<p> la playlist ". $_POST["NomPlaylist"] . " n'existe pas <p>";
+                    }
+                    
+
+                    
+                } else {
+                    return "<p> téléchargement non valide</p>";
+                }
+
+            } else {
+
+                return "<p>" . $_FILES["mp3"]["tmp_name"] . "n'est pas un fichier .mp3</p>";
+
+            }
+
+
+
+            if ((isset($_SESSION["playlist"][$_POST["NomPlaylist"]]))) {
+
+
+                $piste = new \Iutnc\Deefy\Audio\Track\PodcastTrack($date, $titre, $src);
+                $piste->duree = $duree;
+                $piste->genre = $genre;
+                $piste->artiste = $auteur;
+                $_SESSION["playlist"][$_POST["NomPlaylist"]]->add_piste($piste);
+
+
+
+                $html = "";
+
+                foreach ($_SESSION["playlist"][$_POST["NomPlaylist"]]->liste_pistes  as $value) {
+
+                    $trackRender = new \Iutnc\Deefy\Render\PodcastRender($value);
+                    $html .= $trackRender->render(2);
+                }
+
+
+
+
+                $res = <<<HTML
+                    $html
+                    <a href="?action=add-track">Ajouter encore une piste</a>
+                HTML;
+
+
+            } else {
+                $res = <<<HTML
+                    <a href="?action=add-playlist">creer une playlist</a>
+                HTML;
+            }
+
         }
+
         return $res;
+
     }
 }

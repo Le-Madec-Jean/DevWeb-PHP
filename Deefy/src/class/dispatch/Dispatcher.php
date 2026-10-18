@@ -62,6 +62,12 @@ class Dispatcher
                 <title>Deefy</title>
             </head>
             <body>
+
+                <<header>
+                    <a href="http://localhost/DevWeb-PHP/Deefy/src/indexe.php">accueille</a>
+                    <a href="http://localhost/DevWeb-PHP/Deefy/src/indexe.php?action=add-playlist">créer playlist</a>
+                    <a href="">inscription</a>
+                </header>
                 $html
             </body>
         </html>

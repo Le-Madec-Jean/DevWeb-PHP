@@ -24,24 +24,38 @@ class AddPlaylistAction extends Action
                 </form>
               HTML;
         } else {
-            $titre = filter_var($_POST["addPlaylist"], FILTER_SANITIZE_SPECIAL_CHARS);
-            $playlist = new \Iutnc\Deefy\Audio\Lists\Playlists($titre);
-            $_SESSION["playlist"][] = $playlist;
-            
-            
-            $audioRender = new \Iutnc\Deefy\Render\AudioListRenderer($playlist);
-            $html = $audioRender->render(1);
-            
-            $res = <<<HTML
+
+
+            if (isset($_POST["addPlaylist"])) {
+                $titre = filter_var($_POST["addPlaylist"], FILTER_SANITIZE_SPECIAL_CHARS);
+                $playlist = new \Iutnc\Deefy\Audio\Lists\Playlists($titre);
+                $_SESSION["playlist"][$_POST["addPlaylist"]] = $playlist;
+
+
+                $audioRender = new \Iutnc\Deefy\Render\AudioListRenderer($playlist);
+                $html = $audioRender->render(1);
+
+                $res = <<<HTML
                 $html
                 <a href="?action=add-track">Ajouter une piste</a>
 
+                HTML;
 
-            HTML;
+            } else {
+               $audioRender = new \Iutnc\Deefy\Render\AudioListRenderer($_SESSION["playlist"][$_POST["addPlaylist"]] );
+                $html = $audioRender->render(1);
+
+                $res = <<<HTML
+                $html
+                <a href="?action=add-track">Ajouter une piste</a>
+                HTML;
+            }
+
+
 
         }
 
-        
+
 
         return $res;
     }

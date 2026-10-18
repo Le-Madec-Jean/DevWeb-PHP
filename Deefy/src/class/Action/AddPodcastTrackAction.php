@@ -18,7 +18,7 @@ class AddPodcastTrackAction extends Action
 
         if ($this->http_method === "GET") {
             $res = <<<HTML
-                <form method="post" action="?action=add-track" enctype="multipart/form-data">
+                <form method="post" action="?action=add-track-podcast" enctype="multipart/form-data">
                     <label> titre piste: </label>
                     <input type="text" name="titre" required>
 
@@ -50,7 +50,7 @@ class AddPodcastTrackAction extends Action
                     <br>
 
                     <label>  playlist :  </label>
-                    <input type="texte" name="NomPlaylist" required>
+                    <input type="texte" name="nomPlaylist" required>
 
 
                     <button type="submit"> créer</button>
@@ -62,6 +62,7 @@ class AddPodcastTrackAction extends Action
             $duree = filter_var((int) $_POST["temps"], FILTER_SANITIZE_NUMBER_INT);
             $auteur = filter_var($_POST["auteur"], FILTER_SANITIZE_SPECIAL_CHARS);
             $genre = filter_var($_POST["genre"], FILTER_SANITIZE_SPECIAL_CHARS);
+            $nomPlaylist = filter_var($_POST["nomPlaylist"], FILTER_SANITIZE_SPECIAL_CHARS);
             $date = $_POST["date"];
 
 
@@ -83,10 +84,10 @@ class AddPodcastTrackAction extends Action
 
                 if (move_uploaded_file($mp3, $destination)) {
 
-                    if (isset($_SESSION["playlist"][$_POST["NomPlaylist"]])) {
+                    if (isset($_SESSION["playlist"][$_POST["nomPlaylist"]])) {
                        print "<p> téléchargement avec succès </p>";
                     } else {
-                        print "<p> la playlist ". $_POST["NomPlaylist"] . " n'existe pas <p>";
+                        print "<p> la playlist ". $_POST["nomPlaylist"] . " n'existe pas <p>";
                     }
                     
 
@@ -103,20 +104,20 @@ class AddPodcastTrackAction extends Action
 
 
 
-            if ((isset($_SESSION["playlist"][$_POST["NomPlaylist"]]))) {
+            if ((isset($_SESSION["playlist"][$_POST["nomPlaylist"]]))) {
 
 
                 $piste = new \Iutnc\Deefy\Audio\Track\PodcastTrack($date, $titre, $src);
                 $piste->duree = $duree;
                 $piste->genre = $genre;
                 $piste->artiste = $auteur;
-                $_SESSION["playlist"][$_POST["NomPlaylist"]]->add_piste($piste);
+                $_SESSION["playlist"][$_POST["nomPlaylist"]]->add_piste($piste);
 
 
 
                 $html = "";
 
-                foreach ($_SESSION["playlist"][$_POST["NomPlaylist"]]->liste_pistes  as $value) {
+                foreach ($_SESSION["playlist"][$_POST["nomPlaylist"]]->liste_pistes  as $value) {
 
                     $trackRender = new \Iutnc\Deefy\Render\PodcastRender($value);
                     $html .= $trackRender->render(2);
@@ -127,7 +128,8 @@ class AddPodcastTrackAction extends Action
 
                 $res = <<<HTML
                     $html
-                    <a href="?action=add-track">Ajouter encore une piste</a>
+                    <a href="?action=add-track-podcast">Ajouter encore un podcast</a>
+                    <a href="?action=add-track-album">Ajouter encore une piste</a>
                 HTML;
 
 

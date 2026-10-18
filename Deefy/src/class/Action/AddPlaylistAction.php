@@ -37,7 +37,8 @@ class AddPlaylistAction extends Action
 
                 $res = <<<HTML
                 $html
-                <a href="?action=add-track">Ajouter une piste</a>
+                <a href="?action=add-track-podcast">Ajouter un podcast</a>
+                <a href="?action=add-track-album">Ajouter une piste</a>
 
                 HTML;
 
@@ -47,7 +48,8 @@ class AddPlaylistAction extends Action
 
                 $res = <<<HTML
                 $html
-                <a href="?action=add-track">Ajouter une piste</a>
+                <a href="?action=add-track-podcast">Ajouter un podcast</a>
+                    <a href="?action=add-track-album">Ajouter une piste</a>
                 HTML;
             }
 

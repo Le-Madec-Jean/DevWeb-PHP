@@ -41,6 +41,10 @@ class Dispatcher
                     $add_track_album = new $this->action_tab['add-track-album'];
                     $this->renderPage($add_track_album->execute());
                     break;
+                case 'add-user':
+                    $add_user = new $this->action_tab['add-user'];
+                    $this->renderPage($add_user->execute());
+                    break;
                 default:
                     $default = new $this->action_tab['default'];
                     $this->renderPage($default->execute());
@@ -68,9 +72,9 @@ class Dispatcher
             <body>
 
                 <header>
-                    <a href="http://localhost/DevWeb-PHP/Deefy/src/indexe.php">accueille</a>
-                    <a href="http://localhost/DevWeb-PHP/Deefy/src/indexe.php?action=add-playlist">créer playlist</a>
-                    <a href="">inscription</a>
+                    <a href="?action=default">accueille</a>
+                    <a href="?action=add-playlist">créer playlist</a>
+                    <a href="?action=add-user">inscription</a>
                 </header>
                 $html
             </body>

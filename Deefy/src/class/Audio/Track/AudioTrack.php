@@ -10,6 +10,9 @@ class AudioTrack
     protected string $artiste;
     protected string $genre;
     protected int $duree;
+
+    protected array $liste_pistes;
+    
     protected string $nom_fichier;
 
     public function __construct(string $title, string $nom_fichier){
@@ -23,19 +26,28 @@ class AudioTrack
 
     public function __get(string $name) : mixed{
         if(property_exists($this, $name)){return $this->$name;}
-        throw new Exception("invalid property : $name");
+        throw new \Iutnc\Deefy\Exception\InvalidPropertyNameException("invalid property : $name");
     }
 
     public function __set(string $name, mixed $value): void
     {
         if ($value < 0 and $name === "duree") {
-            throw new InvalidPropertyValueException("argument invalid : $value");
+            throw new \Iutnc\Deefy\Exception\InvalidPropertyValueException("argument invalid : $value");
         } else {
             if (property_exists($this, $name)) {
                 $this->$name = $value;
             } else {
-                throw new InvalidPropertyNameException("invalid property : $name");
+                throw new \Iutnc\Deefy\Exception\InvalidPropertyNameException("invalid property : $name");
             }
         }
     }
+
+    public function setID(int $id) : void{
+        $this->id = $id;
+    }
+
+    public function getID() : int{
+        return $this->id;
+    }
+    
 }

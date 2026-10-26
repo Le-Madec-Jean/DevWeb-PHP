@@ -37,10 +37,10 @@ class AddAlbumTrackAction extends Action
                 
 
                     <label> année : </label>
-                    <input type="text" name="année" required>
+                    <input type="number" name="année" required>
 
                     <label> duree en s :</label>
-                    <input type="text" name="temps" required>
+                    <input type="number" name="temps" required>
 
                     <br>
 
@@ -65,11 +65,11 @@ class AddAlbumTrackAction extends Action
             //values input
             $titre = filter_var($_POST["titre"], FILTER_SANITIZE_SPECIAL_CHARS);
             $album = filter_var($_POST["album"], FILTER_SANITIZE_SPECIAL_CHARS);
-            $duree = filter_var((int) $_POST["temps"], FILTER_SANITIZE_NUMBER_INT);
+            $duree = filter_var( $_POST["temps"], FILTER_SANITIZE_NUMBER_INT);
             $auteur = filter_var($_POST["auteur"], FILTER_SANITIZE_SPECIAL_CHARS);
             $genre = filter_var($_POST["genre"], FILTER_SANITIZE_SPECIAL_CHARS);
             $nomPlaylist = filter_var($_POST["nomPlaylist"], FILTER_SANITIZE_SPECIAL_CHARS);
-            $annee = filter_var((int) $_POST["année"], FILTER_SANITIZE_NUMBER_INT);
+            $annee = filter_var($_POST["année"], FILTER_SANITIZE_NUMBER_INT);
             
 
 

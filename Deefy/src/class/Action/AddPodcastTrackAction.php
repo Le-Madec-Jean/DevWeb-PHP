@@ -35,7 +35,7 @@ class AddPodcastTrackAction extends Action
                     <br>
 
                     <label> duree en s :</label>
-                    <input type="text" name="temps" required>
+                    <input type="number" name="temps" required>
 
                     <br>
 
@@ -59,7 +59,7 @@ class AddPodcastTrackAction extends Action
         } else {
             //values input
             $titre = filter_var($_POST["titre"], FILTER_SANITIZE_SPECIAL_CHARS);
-            $duree = filter_var((int) $_POST["temps"], FILTER_SANITIZE_NUMBER_INT);
+            $duree = filter_var($_POST["temps"], FILTER_SANITIZE_NUMBER_INT);
             $auteur = filter_var($_POST["auteur"], FILTER_SANITIZE_SPECIAL_CHARS);
             $genre = filter_var($_POST["genre"], FILTER_SANITIZE_SPECIAL_CHARS);
             $nomPlaylist = filter_var($_POST["nomPlaylist"], FILTER_SANITIZE_SPECIAL_CHARS);
@@ -84,10 +84,10 @@ class AddPodcastTrackAction extends Action
 
                 if (move_uploaded_file($mp3, $destination)) {
 
-                    if (isset($_SESSION["playlist"][$_POST["nomPlaylist"]])) {
+                    if (isset($_SESSION["playlist"][$nomPlaylist])) {
                        print "<p> téléchargement avec succès </p>";
                     } else {
-                        print "<p> la playlist ". $_POST["nomPlaylist"] . " n'existe pas <p>";
+                        print "<p> la playlist ". $nomPlaylist . " n'existe pas <p>";
                     }
                     
 
@@ -104,20 +104,20 @@ class AddPodcastTrackAction extends Action
 
 
 
-            if ((isset($_SESSION["playlist"][$_POST["nomPlaylist"]]))) {
+            if ((isset($_SESSION["playlist"][$nomPlaylist]))) {
 
 
                 $piste = new \Iutnc\Deefy\Audio\Track\PodcastTrack($date, $titre, $src);
                 $piste->duree = $duree;
                 $piste->genre = $genre;
                 $piste->artiste = $auteur;
-                $_SESSION["playlist"][$_POST["nomPlaylist"]]->add_piste($piste);
+                $_SESSION["playlist"][$nomPlaylist]->add_piste($piste);
 
 
 
                 $html = "";
 
-                foreach ($_SESSION["playlist"][$_POST["nomPlaylist"]]->liste_pistes  as $value) {
+                foreach ($_SESSION["playlist"][$nomPlaylist]->liste_pistes  as $value) {
 
                     $trackRender = new \Iutnc\Deefy\Render\PodcastRender($value);
                     $html .= $trackRender->render(2);

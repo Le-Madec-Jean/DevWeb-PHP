@@ -125,7 +125,7 @@ class AddPodcastTrackAction extends Action
 
                     } elseif ($value instanceof \Iutnc\Deefy\Audio\Track\PodcastTrack) {
 
-                        $trackRender = new \Iutnc\Deefy\Render\PodcastTrackRender($value);
+                        $trackRender = new \Iutnc\Deefy\Render\PodcastRender($value);
 
                     }
 

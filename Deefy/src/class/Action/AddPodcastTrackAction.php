@@ -117,12 +117,20 @@ class AddPodcastTrackAction extends Action
 
                 $html = "";
 
-                foreach ($_SESSION["playlist"]->liste_pistes  as $value) {
+                 foreach ($_SESSION["playlist"]->liste_pistes as $value) {
 
-                    $trackRender = new \Iutnc\Deefy\Render\PodcastRender($value);
+                    if ($value instanceof \Iutnc\Deefy\Audio\Track\AlbumTrack) {
+
+                        $trackRender = new \Iutnc\Deefy\Render\AlbumTrackRender($value);
+
+                    } elseif ($value instanceof \Iutnc\Deefy\Audio\Track\PodcastTrack) {
+
+                        $trackRender = new \Iutnc\Deefy\Render\PodcastTrackRender($value);
+
+                    }
+
                     $html .= $trackRender->render(2);
                 }
-
 
 
 

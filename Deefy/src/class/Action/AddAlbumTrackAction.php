@@ -65,12 +65,12 @@ class AddAlbumTrackAction extends Action
             //values input
             $titre = filter_var($_POST["titre"], FILTER_SANITIZE_SPECIAL_CHARS);
             $album = filter_var($_POST["album"], FILTER_SANITIZE_SPECIAL_CHARS);
-            $duree = filter_var( $_POST["temps"], FILTER_SANITIZE_NUMBER_INT);
+            $duree = filter_var($_POST["temps"], FILTER_SANITIZE_NUMBER_INT);
             $auteur = filter_var($_POST["auteur"], FILTER_SANITIZE_SPECIAL_CHARS);
             $genre = filter_var($_POST["genre"], FILTER_SANITIZE_SPECIAL_CHARS);
             $nomPlaylist = filter_var($_POST["nomPlaylist"], FILTER_SANITIZE_SPECIAL_CHARS);
             $annee = filter_var($_POST["année"], FILTER_SANITIZE_NUMBER_INT);
-            
+
 
 
             //upload mp3
@@ -92,13 +92,13 @@ class AddAlbumTrackAction extends Action
                 if (move_uploaded_file($mp3, $destination)) {
 
                     if (isset($_SESSION["playlist"])) {
-                       print "<p> téléchargement avec succès </p>";
+                        print "<p> téléchargement avec succès </p>";
                     } else {
-                        print "<p> la playlist ". $nomPlaylist . " n'existe pas <p>";
+                        print "<p> la playlist " . $nomPlaylist . " n'existe pas <p>";
                     }
-                    
 
-                    
+
+
                 } else {
                     return "<p> téléchargement non valide</p>";
                 }
@@ -125,9 +125,18 @@ class AddAlbumTrackAction extends Action
 
                 $html = "";
 
-                foreach ($_SESSION["playlist"]->liste_pistes  as $value) {
+                foreach ($_SESSION["playlist"]->liste_pistes as $value) {
 
-                    $trackRender = new \Iutnc\Deefy\Render\AlbumTrackRender($value);
+                    if ($value instanceof \Iutnc\Deefy\Audio\Track\AlbumTrack) {
+
+                        $trackRender = new \Iutnc\Deefy\Render\AlbumTrackRender($value);
+
+                    } elseif ($value instanceof \Iutnc\Deefy\Audio\Track\PodcastTrack) {
+
+                        $trackRender = new \Iutnc\Deefy\Render\PodcastTrackRender($value);
+
+                    }
+
                     $html .= $trackRender->render(2);
                 }
 

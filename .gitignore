@@ -8,7 +8,7 @@
 
 # User-specific files
 *.rsuser
-*.suo
+*.suogit 
 *.user
 *.userosscache
 *.sln.docstates

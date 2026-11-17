@@ -84,7 +84,7 @@ class AddPodcastTrackAction extends Action
 
                 if (move_uploaded_file($mp3, $destination)) {
 
-                    if (isset($_SESSION["playlist"][$nomPlaylist])) {
+                    if (isset($_SESSION["playlist"])) {
                        print "<p> téléchargement avec succès </p>";
                     } else {
                         print "<p> la playlist ". $nomPlaylist . " n'existe pas <p>";
@@ -104,20 +104,20 @@ class AddPodcastTrackAction extends Action
 
 
 
-            if ((isset($_SESSION["playlist"][$nomPlaylist]))) {
+            if ((isset($_SESSION["playlist"]))) {
 
 
                 $piste = new \Iutnc\Deefy\Audio\Track\PodcastTrack($date, $titre, $src);
                 $piste->duree = $duree;
                 $piste->genre = $genre;
                 $piste->artiste = $auteur;
-                $_SESSION["playlist"][$nomPlaylist]->add_piste($piste);
+                $_SESSION["playlist"]->add_piste($piste);
 
 
 
                 $html = "";
 
-                foreach ($_SESSION["playlist"][$nomPlaylist]->liste_pistes  as $value) {
+                foreach ($_SESSION["playlist"]->liste_pistes  as $value) {
 
                     $trackRender = new \Iutnc\Deefy\Render\PodcastRender($value);
                     $html .= $trackRender->render(2);

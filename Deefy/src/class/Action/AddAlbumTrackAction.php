@@ -91,7 +91,7 @@ class AddAlbumTrackAction extends Action
 
                 if (move_uploaded_file($mp3, $destination)) {
 
-                    if (isset($_SESSION["playlist"][$nomPlaylist])) {
+                    if (isset($_SESSION["playlist"])) {
                        print "<p> téléchargement avec succès </p>";
                     } else {
                         print "<p> la playlist ". $nomPlaylist . " n'existe pas <p>";
@@ -111,21 +111,21 @@ class AddAlbumTrackAction extends Action
 
 
 
-            if ((isset($_SESSION["playlist"][$nomPlaylist]))) {
+            if ((isset($_SESSION["playlist"]))) {
 
 
-                $piste = new \Iutnc\Deefy\Audio\Track\AlbumTrack($titre, $src, $album, count($_SESSION["playlist"][$nomPlaylist]->liste_pistes));
+                $piste = new \Iutnc\Deefy\Audio\Track\AlbumTrack($titre, $src, $album, count($_SESSION["playlist"]->liste_pistes));
                 $piste->duree = $duree;
                 $piste->genre = $genre;
                 $piste->artiste = $auteur;
                 $piste->annee = $annee;
-                $_SESSION["playlist"][$nomPlaylist]->add_piste($piste);
+                $_SESSION["playlist"]->add_piste($piste);
 
 
 
                 $html = "";
 
-                foreach ($_SESSION["playlist"][$nomPlaylist]->liste_pistes  as $value) {
+                foreach ($_SESSION["playlist"]->liste_pistes  as $value) {
 
                     $trackRender = new \Iutnc\Deefy\Render\AlbumTrackRender($value);
                     $html .= $trackRender->render(2);

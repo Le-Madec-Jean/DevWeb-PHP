@@ -1,8 +1,12 @@
 <?php
 
+namespace Iutnc\Deefy\repository;
+
 use \Iutnc\Deefy\Audio\Track\AudioTrack;
 use \Iutnc\Deefy\Audio\Track\AlbumTrack;
 use \Iutnc\Deefy\Audio\Lists\Playlists;
+
+
 class DeefyRepository
 {
     private \PDO $pdo;
@@ -42,17 +46,19 @@ class DeefyRepository
         return $pk;
     }
 
-    public function get_all_playlist(): array
+    public function findAllPlaylists(): array
     {
         $tab_playlists = [];
         $query = <<<SQL
-                    select nom from PlayLists
+                    select nom, id from playlist
                 SQL;
 
         $stmt = $this->pdo->query($query);
 
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $tab_playlists[] = new Playlists($row['nom']);
+        while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)) {
+            $playlist = new Playlists($row['nom']);
+            $playlist->setID($row['id']); 
+            $tab_playlists[] = $playlist;
         }
         return $tab_playlists;
     }
@@ -79,7 +85,7 @@ class DeefyRepository
             return $piste;
         } else {
 
-            $query = "INSERT INTO track (titre, genre, duree, filename, type, auteur_podcast, date_podcast) 
+            $query = "INSERT INTO track (titre, genre, duree, filename, type, auteur_podcast, date_posdcast) 
                         VALUES (:titre, :genre, :duree, :filename, :type, :auteur_podcast, :date_podcast)";
             $stmt = $this->pdo->prepare($query);
             $stmt->execute([
@@ -98,7 +104,7 @@ class DeefyRepository
 
     function savePlayliste(Playlists &$p, AudioTrack $piste): void
     {
-        
+
         //faire une requê pour avoir la ligne de la playliste existante(grâce à son nom)
         $queryPlaylist = <<<SQL
             select id, nom from playlist where nom = :nom;
@@ -106,7 +112,7 @@ class DeefyRepository
 
         $stmtPlaylist = $this->pdo->prepare($queryPlaylist);
         $stmtPlaylist->execute(["nom" => $p->nom]);
-        $row_playlist = $stmtPlaylist->fetch(PDO::FETCH_ASSOC);
+        $row_playlist = $stmtPlaylist->fetch(\PDO::FETCH_ASSOC);
 
         // vérifier si la playlist existe
         if ($row_playlist === false) {
@@ -123,8 +129,8 @@ class DeefyRepository
         SQL;
 
         $stmtPiste = $this->pdo->prepare($queryPiste);
-        $stmtPiste->execute(["titre"=> $piste->title]);
-        $row_piste = $stmtPiste->fetch(PDO::FETCH_ASSOC);
+        $stmtPiste->execute(["titre" => $piste->title]);
+        $row_piste = $stmtPiste->fetch(\PDO::FETCH_ASSOC);
 
         // vérifier si la piste existe
         if ($row_piste === false) {
@@ -136,14 +142,14 @@ class DeefyRepository
 
         $p->add_piste($piste);
 
-       /* // je sélectionne l'id de la playliste et je compte combien de fois il apparâite et + 1 au moment de l'ajout
-        $compteur_piste = <<<SQL
-            select count(*) as nb_pistes from playlist2track
-            where id_pl = :id;
-        SQL;
-        $stmtCompteur_piste = $this->pdo->prepare($compteur_piste);
-        $stmtCompteur_piste->execute(["id"=> $p->getID()]);
-        $row_compteur_piste = $stmtCompteur_piste->fetch(PDO::FETCH_ASSOC);*/
+        /* // je sélectionne l'id de la playliste et je compte combien de fois il apparâite et + 1 au moment de l'ajout
+         $compteur_piste = <<<SQL
+             select count(*) as nb_pistes from playlist2track
+             where id_pl = :id;
+         SQL;
+         $stmtCompteur_piste = $this->pdo->prepare($compteur_piste);
+         $stmtCompteur_piste->execute(["id"=> $p->getID()]);
+         $row_compteur_piste = $stmtCompteur_piste->fetch(PDO::FETCH_ASSOC);*/
 
         $index = array_search($piste, $p->liste_pistes);
 

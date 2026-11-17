@@ -29,7 +29,7 @@ class AddPlaylistAction extends Action
             if (isset($_POST["addPlaylist"])) {
                 $titre = filter_var($_POST["addPlaylist"], FILTER_SANITIZE_SPECIAL_CHARS);
                 $playlist = new \Iutnc\Deefy\Audio\Lists\Playlists($titre);
-                $_SESSION["playlist"][$_POST["addPlaylist"]] = $playlist;
+                $_SESSION["playlist"] = $playlist;
 
 
                 $audioRender = new \Iutnc\Deefy\Render\AudioListRenderer($playlist);
@@ -43,7 +43,7 @@ class AddPlaylistAction extends Action
                 HTML;
 
             } else {
-               $audioRender = new \Iutnc\Deefy\Render\AudioListRenderer($_SESSION["playlist"][$_POST["addPlaylist"]] );
+               $audioRender = new \Iutnc\Deefy\Render\AudioListRenderer($_POST["addPlaylist"]);
                 $html = $audioRender->render(1);
 
                 $res = <<<HTML

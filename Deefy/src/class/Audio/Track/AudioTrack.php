@@ -15,6 +15,9 @@ class AudioTrack
     
     protected string $nom_fichier;
 
+    protected int $id;
+
+
     public function __construct(string $title, string $nom_fichier){
         $this->title = $title;
         $this->nom_fichier = $nom_fichier;
